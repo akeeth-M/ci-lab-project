@@ -28,14 +28,14 @@ jobs:
           mkdir build
           echo "Build Successful!" > build/output.txt
 
-      # Upload artifact to CI (GitHub Actions Artifacts)
+      # Upload artifact to CI (Actions Artifacts)
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
         with:
           name: build-output
           path: build/
 
-      # Create a Release automatically
+      # Create GitHub Release
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
@@ -43,12 +43,14 @@ jobs:
           name: "Release v1.0.${{ github.run_number }}"
           generate_release_notes: true
         env:
-          GITHUB_TOKEN: ${{secrets.G2_TOKEN}}
+          GITHUB_TOKEN: ${{ secrets.G2_TOKEN }}
 
-      # Attach artifact file to Release
+      # Upload Artifact to Release
       - name: Upload Artifact to Release
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: v1.0.${{ github.run_number }}   # REQUIRED!
           files: build/output.txt
+          overwrite: true
         env:
-          GITHUB_TOKEN: ${{secrets.G2_TOKEN}}
+          GITHUB_TOKEN: ${{ secrets.G2_TOKEN }}
