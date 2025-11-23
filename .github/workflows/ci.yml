@@ -43,7 +43,7 @@ jobs:
           name: "Release v1.0.${{ github.run_number }}"
           generate_release_notes: true
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{G2_TOKEN}}
 
       # Attach artifact file to Release
       - name: Upload Artifact to Release
@@ -51,4 +51,4 @@ jobs:
         with:
           files: build/output.txt
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{G2_TOKEN}}
